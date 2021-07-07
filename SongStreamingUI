@@ -1,0 +1,94 @@
+Widget SongStreamingUI(BuildContext context) {
+    return Dismissible(
+      key: Key('value'),
+      direction: DismissDirection.down,
+      onDismissed: (DismissDirection direction) {
+        setState(() {
+          maximizeUI = false;
+        });
+      },
+      child: Container(
+        height: (MediaQuery.of(context).size.height),
+        decoration: BoxDecoration(
+            color: Colors.black45,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x55212121),
+                blurRadius: 8.0,
+              ), //BoxShadow
+            ]), //BoxDecoration
+        child: Column(children: <Widget>[
+          SizedBox(
+            height: 10.0,
+          ),
+          Center(
+            child: Container(
+              width: 280.0,
+              height: 280.0,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  image: DecorationImage(
+                    image: NetworkImage(list[curIndex]["coverUrl"]),
+                  )),
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 12.0),
+            child: Center(
+              child: Text(
+                list[curIndex]["title"],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: GestureDetector(
+              child: Text(
+                list[curIndex]["singer"],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+          Text(
+            list[curIndex]["cover"] ?? '',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                _formatDuration(_position),
+                style: TextStyle(color: Color(0xff00cec9)),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width - 120),
+              Text(
+                _formatDuration(_duration),
+                style: TextStyle(color: Color(0xff00cec9)),
+              ),
+            ],
+          ),
+          bottomPanel(),
+        ]),
+      ),
+    );
+  }
